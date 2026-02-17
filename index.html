@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Parte 2 🩵</title>
 
-<!-- Fonte delicada igual da galáxia -->
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -12,111 +11,98 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Quicksand', sans-serif;
+  color: white;
   background: url('pordosol.jpeg') no-repeat center center fixed;
   background-size: cover;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
-/* Container da senha */
-#senhaContainer {
-  text-align: center;
-  background: rgba(0,0,0,0.4);
+.container {
+  max-width: 800px;
+  margin: 100px auto;
   padding: 40px;
-  border-radius: 20px;
+  line-height: 1.8;
+  font-size: 20px;
+  display: none;
 }
 
-#mensagem {
+input, button {
+  font-family: 'Quicksand', sans-serif;
   font-size: 22px;
-  margin-bottom: 20px;
-}
-
-#senhaLabel {
-  font-size: 20px;
-  display: block;
-  margin-bottom: 10px;
-}
-
-#senhaInput {
-  font-size: 20px;
   padding: 8px 12px;
-  border-radius: 10px;
-  border: 2px solid white;
-  background: rgba(255,255,255,0.1);
-  color: white;
-  text-align: center;
-  width: 150px;
+  margin-top: 10px;
 }
 
-#verificarBtn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 18px;
-  border-radius: 30px;
-  border: 2px solid white;
-  background: transparent;
-  color: white;
+button {
   cursor: pointer;
 }
 
-#verificarBtn:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-#erro {
-  margin-top: 15px;
-  font-size: 18px;
-  color: #ffcccc;
-}
-
-#dica {
-  margin-top: 10px;
-  font-size: 16px;
-  color: #ffd6d6;
+.gif-container {
   display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+}
+
+.gif-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>
 </head>
 
 <body>
 
-<div id="senhaContainer">
-  <div id="mensagem">SENHA:</div>
-  <input type="text" id="senhaInput" maxlength="8" placeholder="_ _ _ _ _ _ _ _">
-  <br>
-  <button id="verificarBtn" onclick="checarSenha()">Verificar</button>
-  <div id="erro"></div>
-  <div id="dica">Dica: Quando nos falamos a primeira vez</div>
+<div class="senha-container">
+  <label for="senha">SENHA:</label>
+  <input type="text" id="senha" maxlength="8">
+  <button onclick="verificarSenha()">Enviar</button>
+  <p id="mensagem" style="color:white; font-size:20px; margin-top:10px;"></p>
+</div>
+
+<div class="gif-container" id="gifContainer">
+  <img src="https://i.pinimg.com/originals/d6/67/7f/d6677f8a36999f175e70a58043b4986f.gif">
+</div>
+
+<div class="container" id="texto">
+Aqui vai o texto que você quer mostrar depois do GIF 🤍✨
 </div>
 
 <script>
 let tentativas = 0;
-const senhaCorreta = "01092022";
 
-function checarSenha() {
-  const input = document.getElementById("senhaInput").value;
-  const erro = document.getElementById("erro");
-  const dica = document.getElementById("dica");
-  tentativas++;
-
-  if(input === senhaCorreta) {
-    erro.textContent = "";
-    dica.style.display = "none";
-    alert("Senha correta! 🤍"); // aqui você depois pode colocar o que vai aparecer
+function verificarSenha() {
+  let senha = document.getElementById("senha").value;
+  let mensagem = document.getElementById("mensagem");
+  
+  if(senha === "01092022") {
+    // Esconde os elementos da senha
+    document.querySelector(".senha-container").style.display = "none";
+    
+    // Mostra o GIF
+    let gif = document.getElementById("gifContainer");
+    gif.style.display = "block";
+    
+    // Depois de 4 segundos, esconde o GIF e mostra o texto
+    setTimeout(() => {
+      gif.style.display = "none";
+      document.getElementById("texto").style.display = "block";
+    }, 4000);
+    
   } else {
-    erro.textContent = "Tenta denovo idiota!";
-    if(tentativas >= 3) {
-      dica.style.display = "block";
+    tentativas++;
+    if(tentativas < 3) {
+      mensagem.textContent = "Tenta denovo idiota!";
+    } else {
+      mensagem.textContent = "Dica: Quando nos falamos a primeira vez";
     }
-    document.getElementById("senhaInput").value = "";
   }
 }
 </script>
 
 </body>
 </html>
-

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <title>Parte 2 🩵</title>
 
+<!-- Fonte delicada igual da galáxia -->
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -11,69 +12,75 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Quicksand', sans-serif;
-  color: white;
   background: url('pordosol.jpeg') no-repeat center center fixed;
   background-size: cover;
-  overflow-x: hidden;
+  color: white;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
 }
 
-.senha-container {
+/* Container da senha */
+#senhaContainer {
   text-align: center;
+  background: rgba(0,0,0,0.4);
+  padding: 40px;
+  border-radius: 20px;
 }
 
-.senha-container p {
-  font-size: 26px;
-  letter-spacing: 8px;
+#mensagem {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+#senhaLabel {
+  font-size: 20px;
+  display: block;
   margin-bottom: 10px;
 }
 
-input {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 24px;
-  padding: 6px 10px;
-  text-align: center;
-  width: 200px;
-  border-radius: 6px;
+#senhaInput {
+  font-size: 20px;
+  padding: 8px 12px;
+  border-radius: 10px;
   border: 2px solid white;
-  background: transparent;
+  background: rgba(255,255,255,0.1);
   color: white;
+  text-align: center;
+  width: 150px;
 }
 
-button {
-  margin-left: 10px;
-  padding: 6px 12px;
-  font-size: 20px;
-  border-radius: 6px;
+#verificarBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 30px;
   border: 2px solid white;
   background: transparent;
   color: white;
   cursor: pointer;
 }
 
-button:hover {
+#verificarBtn:hover {
   background: rgba(255,255,255,0.2);
 }
 
-#mensagem {
-  margin-top: 12px;
-  font-size: 22px;
-  color: white;
+#erro {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #ffcccc;
 }
 
-.container {
-  max-width: 800px;
-  margin-top: 40px;
-  padding: 20px;
-  line-height: 1.8;
-  font-size: 20px;
+#dica {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #ffd6d6;
   display: none;
 }
 
+/* GIF tela cheia com fade */
 .gif-container {
   display: none;
   position: fixed;
@@ -82,6 +89,8 @@ button:hover {
   width: 100vw;
   height: 100vh;
   z-index: 10;
+  opacity: 1;
+  transition: opacity 3s ease-out; /* fade suave */
 }
 
 .gif-container img {
@@ -89,58 +98,81 @@ button:hover {
   height: 100%;
   object-fit: cover;
 }
+
+/* Texto final */
+.container {
+  display: none;
+  max-width: 800px;
+  margin-top: 30px;
+  font-size: 20px;
+  line-height: 1.8;
+  text-align: center;
+}
 </style>
 </head>
 
 <body>
 
-<div class="senha-container">
-  <p>SENHA:</p>
-  <input type="text" id="senha" maxlength="8" placeholder="Digite aqui">
-  <button onclick="verificarSenha()">Enviar</button>
-  <div id="mensagem"></div>
+<div id="senhaContainer">
+  <div id="mensagem">SENHA:</div>
+  <input type="text" id="senhaInput" maxlength="8" placeholder="_ _ _ _ _ _ _ _">
+  <br>
+  <button id="verificarBtn" onclick="checarSenha()">Verificar</button>
+  <div id="erro"></div>
+  <div id="dica">Dica: Quando nos falamos a primeira vez</div>
 </div>
 
+<!-- GIF tela cheia -->
 <div class="gif-container" id="gifContainer">
-  <img src="https://i.pinimg.com/originals/d6/67/7f/d6677f8a36999f175e70a58043b4986f.gif">
+  <img src="https://i.pinimg.com/originals/d6/67/7f/d6677f8a36999f175e70a58043b4986f.gif" id="gifImg">
 </div>
 
+<!-- Texto final após o GIF -->
 <div class="container" id="texto">
 Aqui vai o texto que você quer mostrar depois do GIF 🤍✨
 </div>
 
 <script>
 let tentativas = 0;
+const senhaCorreta = "01092022";
 
-function verificarSenha() {
-  let senha = document.getElementById("senha").value;
-  let mensagem = document.getElementById("mensagem");
-  
-  if(senha === "01092022") {
-    // Esconde os elementos da senha
-    document.querySelector(".senha-container").style.display = "none";
-    
+function checarSenha() {
+  const input = document.getElementById("senhaInput").value;
+  const erro = document.getElementById("erro");
+  const dica = document.getElementById("dica");
+  tentativas++;
+
+  if(input === senhaCorreta) {
+    erro.textContent = "";
+    dica.style.display = "none";
+
+    // Esconde o container da senha
+    document.getElementById("senhaContainer").style.display = "none";
+
     // Mostra o GIF
-    let gif = document.getElementById("gifContainer");
-    gif.style.display = "block";
-    
-    // Depois de 4 segundos, esconde o GIF e mostra o texto
+    const gifContainer = document.getElementById("gifContainer");
+    gifContainer.style.display = "block";
+
+    // Espera 1 segundo e começa fade
     setTimeout(() => {
-      gif.style.display = "none";
+      gifContainer.style.opacity = "0"; // inicia fade
+    }, 1000);
+
+    // Depois de 4s, esconde o GIF e mostra o texto
+    setTimeout(() => {
+      gifContainer.style.display = "none";
       document.getElementById("texto").style.display = "block";
     }, 4000);
-    
+
   } else {
-    tentativas++;
-    if(tentativas < 3) {
-      mensagem.textContent = "Tenta denovo idiota!";
-    } else {
-      mensagem.textContent = "Dica: Quando nos falamos a primeira vez";
+    erro.textContent = "Tenta denovo idiota!";
+    if(tentativas >= 3) {
+      dica.style.display = "block";
     }
+    document.getElementById("senhaInput").value = "";
   }
 }
 </script>
 
 </body>
 </html>
-

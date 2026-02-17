@@ -17,16 +17,6 @@ body {
   overflow-x: hidden;
 }
 
-.overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  top: 0;
-  left: 0;
-  z-index: 0;
-}
-
 .container {
   max-width: 800px;
   margin: 100px auto;
@@ -34,9 +24,6 @@ body {
   line-height: 1.8;
   font-size: 18px;
   display: none;
-  position: relative;
-  z-index: 2;
-  animation: fadeIn 2s forwards;
   text-align: justify;
 }
 
@@ -47,28 +34,27 @@ body {
   height: 120px;
   background: transparent;
   border: 2px solid rgba(255,255,255,0.7);
-  clip-path: polygon(
-    50% 0%, 61% 11%, 75% 15%, 85% 30%, 90% 50%, 85% 70%, 75% 85%, 61% 89%, 50% 100%, 
-    39% 89%, 25% 85%, 15% 70%, 10% 50%, 15% 30%, 25% 15%, 39% 11%
-  );
+  border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 250px auto;
   z-index: 2;
-}
-
-.heart-inner {
-  width: 60px;
-  height: 60px;
-  background: white;
   clip-path: polygon(
     50% 0%, 61% 11%, 75% 15%, 85% 30%, 90% 50%, 85% 70%, 75% 85%, 61% 89%, 50% 100%, 
     39% 89%, 25% 85%, 15% 70%, 10% 50%, 15% 30%, 25% 15%, 39% 11%
   );
 }
 
+.heart-inner {
+  width: 60px;
+  height: 60px;
+  background: white;
+  clip-path: inherit; /* pega a mesma forma do externo */
+}
+
+/* GIF FULLSCREEN */
 .gif-container {
   display: none;
   position: fixed;
@@ -87,6 +73,7 @@ body {
   animation: fadeOut 4s forwards;
 }
 
+/* ANIMAÇÕES */
 @keyframes fadeOut {
   from {opacity: 0.5;}
   to {opacity: 0;}
@@ -100,8 +87,6 @@ body {
 </head>
 
 <body>
-
-<div class="overlay"></div>
 
 <!-- BOTÃO CORAÇÃO -->
 <button class="heart-button" onclick="revelar()">

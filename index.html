@@ -35,12 +35,6 @@ body {
   margin-bottom: 20px;
 }
 
-#senhaLabel {
-  font-size: 20px;
-  display: block;
-  margin-bottom: 10px;
-}
-
 #senhaInput {
   font-size: 20px;
   padding: 8px 12px;
@@ -99,14 +93,20 @@ body {
   object-fit: cover;
 }
 
-/* Texto final */
+/* Texto final rolável */
 .container {
   display: none;
   max-width: 800px;
-  margin-top: 30px;
+  max-height: 80vh; /* limita a altura da tela */
+  margin: 30px auto;
   font-size: 20px;
   line-height: 1.8;
   text-align: center;
+  overflow-y: auto; /* permite rolagem vertical */
+  scroll-behavior: smooth; /* rolagem suave */
+  padding: 20px;
+  background: rgba(0,0,0,0.3); /* fundo semi-transparente */
+  border-radius: 15px;
 }
 </style>
 </head>
@@ -135,7 +135,7 @@ Sim, talvez eu tenha exagerado um pouco no outro texto, mas eu ainda sinto que d
 
 Tipo como eu sempre me sinto meio (muito) idiota falando com você. Eu não gosto nenhum pouco do jeito que sou extremamente sensível na maioria das vezes. Acontecem sempre pequenas coisas durante o dia que me fazem sair de super bem pra super mal. Parece que não existe um "morno" dentro do meu coração. Ao mesmo tempo que eu sinto vontade de te sufocar com meus sentimentos quando me sinto deixada de lado por você, eu também não quero te sobrecarregar com nada.<br><br>
 
-Mas, sinceramente, eu sempre percebo tudo e sei que, quando você ignora algo que eu te mandei, é proposital. Eu não te julgo, afinal não posso obrigar nenhuma pessoa a ser do jeito que eu queria que ela fosse. Mas às vezes realmente me pego olhando para o teto, no escuro, relembrando como nós éramos no passado e quão bobas eram nossas interações, mas que, mesmo assim, me deixavam tão feliz. Sempre morro de vergonha e me sinto a maior estúpida do mundo, por exemplo, quando lembro que escrevi por texto que te amava em todas as línguas que consegui traduzir. E provavelmente, no futuro, vou me lembrar disso da mesma forma, sobre o quão estúpida eu provavelmente estou sendo de escrever tudo isso.<br><br>
+Mas, sinceramente, eu sempre percebo tudo e sei que, quando você ignora algo que eu te mandei, é proposital. Eu não te julgo, afinal não posso obrigar nenhuma pessoa a ser do jeito que eu queria que ela fosse. Mas às vezes realmente me pego olhando para o teto, no escuro, relembrando como nós éramos no passado e quão bobas eram nossas interações, mas que, mesmo assim, me deixavam tão feliz...<br><br>
 
 Mesmo que não pareça, às vezes eu sempre ligo muito para o que você escreve. Por isso, às vezes visualizo suas mensagens e não respondo (todas as vezes que isso acontece, provavelmente eu fui chorar), pois, por algum motivo, eu fico TÃO dramática quando se trata de você. Mas realmente dói ver que não sou um amor para você, e acho que eu iria me sufocar se não desabafasse logo o que eu sinto.<br><br>
 
@@ -198,4 +198,3 @@ function checarSenha() {
 
 </body>
 </html>
-
